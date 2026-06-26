@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 6 A2 · Aluno · Enlace Brasil</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222;padding-bottom:40px}
+.header{background:#0d3b6e;color:#fff;padding:18px 24px;display:flex;align-items:center;gap:14px}
+.header img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:#fff}
+.header-text .nivel{font-size:11px;letter-spacing:2px;color:#f5c842;text-transform:uppercase;font-weight:600}
+.header-text .titulo{font-size:16px;font-weight:700}
+.header-text .sub{font-size:12px;color:#a8c4e0}
+.sec{background:#1a9a8a;color:#fff;padding:14px 24px;margin-top:24px}
+.sec h2{font-size:16px;font-weight:700}
+.sec p{font-size:12px;opacity:.85;margin-top:2px}
+.content{padding:20px 24px;max-width:800px;margin:0 auto}
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.ref-card{background:#fff;border-radius:10px;padding:14px;border-left:4px solid #1a9a8a;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.ref-card .pt{font-size:15px;font-weight:700;color:#0d3b6e}
+.ref-card .es{font-size:12px;color:#777;margin-top:2px}
+.ref-card .ex{font-size:12px;color:#1a9a8a;margin-top:4px;font-style:italic}
+.familia-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:12px}
+.familia-card{background:#fff;border-radius:10px;padding:12px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.06);border-top:3px solid #0d3b6e}
+.familia-card .emoji{font-size:24px;margin-bottom:4px}
+.familia-card .pt{font-size:13px;font-weight:700;color:#0d3b6e}
+.familia-card .es{font-size:11px;color:#777;margin-top:2px}
+.ex-box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.06);margin-top:12px}
+.ex-box h3{font-size:15px;font-weight:700;color:#0d3b6e;margin-bottom:12px;border-bottom:2px solid #f5c842;padding-bottom:6px}
+.ex-q{margin-bottom:18px}
+.ex-q p{font-size:14px;color:#333;margin-bottom:8px;line-height:1.6}
+.ex-q textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px;font-size:14px;font-family:inherit;resize:vertical;min-height:48px}
+.ex-q textarea:focus{outline:none;border-color:#1a9a8a}
+.opcoes{display:flex;flex-direction:column;gap:7px;margin-top:8px}
+.opcao{background:#f7f9fc;border:2px solid #ddd;border-radius:8px;padding:9px 14px;cursor:pointer;font-size:14px;transition:all .2s;line-height:1.5}
+.opcao:hover{border-color:#1a9a8a;background:#e8f5f2}
+.opcao.certo{border-color:#1a9a8a;background:#d4edda;color:#1a4a1a;pointer-events:none}
+.opcao.errado{border-color:#e74c3c;background:#fde8e8;color:#7a1a1a;pointer-events:none}
+.transform-item{margin-bottom:14px}
+.transform-item p{font-size:14px;color:#333;margin-bottom:6px;line-height:1.6}
+.transform-item input{width:100%;border:1px solid #ddd;border-radius:8px;padding:8px 12px;font-size:14px;font-family:inherit}
+.transform-item input:focus{outline:none;border-color:#1a9a8a}
+.feedback{font-size:12px;margin-top:4px;padding:5px 10px;border-radius:6px;display:none}
+.feedback.ok{display:block;background:#d4edda;color:#1a4a1a}
+.feedback.err{display:block;background:#fde8e8;color:#7a1a1a}
+.prod-item{margin-bottom:14px}
+.prod-item .prompt{background:#f0f4f8;border-radius:8px;padding:9px 14px;font-size:14px;color:#0d3b6e;font-weight:600;margin-bottom:6px}
+.prod-item textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:9px;font-size:14px;font-family:inherit;resize:vertical;min-height:52px}
+.prod-item textarea:focus{outline:none;border-color:#1a9a8a}
+.btn-ver{background:#0d3b6e;color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:14px;cursor:pointer;margin-top:10px;font-weight:600}
+.gabarito{background:#e8f5e9;border-radius:8px;padding:12px;margin-top:8px;font-size:13px;color:#1a4a1a;display:none;line-height:1.9}
+.destaque{background:#fff3cd;border-left:4px solid #f5c842;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:13px;color:#333;line-height:1.7}
+.alerta{background:#fde8e8;border-left:4px solid #e74c3c;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:13px;color:#333}
+.arvore{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.06);margin-top:12px;min-height:200px;border:2px dashed #1a9a8a}
+.arvore p{font-size:13px;color:#888;text-align:center;margin-top:60px}
+.rodape{text-align:center;padding:24px;color:#888;font-size:12px;margin-top:24px}
+.rodape img{width:40px;border-radius:50%;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto}
+a.ab{display:inline-block;border:1px solid #1a9a8a;border-radius:6px;padding:2px 8px;font-size:12px;color:#1a9a8a;text-decoration:none;margin-left:5px;vertical-align:middle;cursor:pointer;background:#fff}
+a.ab:hover{background:#1a9a8a;color:#fff}
+a.ab.playing{background:#f5c842;color:#0d3b6e;border-color:#f5c842}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAALQElEQVR4nO3dbXBU1RkH8P9mNwlJSBUFYkOUYiJvAaF0ipLUilCdYLGitp222MF2ph+0NLSdqrSdoVMr8lL9gLZgrdMWR6lMrc5oCcG2MrwEkgK2NQGUlwSYEIcAAiYpJCHZflg2Jpvs2XvvnnvvOef+f5/ImsDdc55/nudsNtdQfnllFEQ0pAy/L4BIZQwIkQADQiTAgBAJRPy+gCDJX1Qk7e9qW98s7e+i5BgQyWSGwOm/w/DIw4Ckwasw2DXUdTE0zjAgNqgaCCsSr52BsYYBSUHVc0O619X/6xmW5EL8Sfpg6RSfCsWm+/WrhAG5wklR6VRMpj8/twQ+IHYKx6SCCerztiuQAWFxDMT1SC5QAbFaCEErgv64RgMFIiDcdPu4ZjFGB8TKJpu+wTIEeR2NDEiQN9RNQVxX4wKSahNN20A/BGmNjQlIkDZNFUFYc+0DEoRNUp3Je6B1QPiWb7WYuB/a/kahiZuhO9G66/pOaO06CIOhB1P2SauAJFt0nRY8aHTfM21GLN0XOqiS7Y8uI5fyHcSUVh10uu6j0gFh1zCPbnuq7Iil20KSNbqNXEoGhOEwm04hUW7E4i1rgkX1/Vaqg6i+WCTfUPurUidRJiAMR3CpHBIlAsJwkKoh8T0gDAfFqRgSXwPCcFAi1ULiW0AYDkpGpZD4EhCGg1JRJSSeB4ThIKtUCImnAWE4yC6/Q+JZQBgOcsrPkPh2SGc4yA6/6sWTgPj9WjaZyYu6cj0gHK1IFj9GLVcDwnCQbF6HxNMzCMNBMnhZR64FhOcO8pJb9eZKQDhakdu8GrWkB4ThIK94ERLXzyAMB7nJ7fqSGhCeO0gFMuvQ1Q7C7kFecLPOpAWE3YNUIqsepQSEB3Pym1sHdldGLIaD/OBG3aUdEI5WpLJ061N6B2H3ID/Jrr+0AsLuQTpIp06ldhB2D1KBzDp0HBB2D9KJ03qV1kHYPUglsurRUUDYPUhHTupWSgdh9yAVyahL329eTaQy2wFJbFPsHqSyxPq0O2axgxAJ2AoID+dkAjt1nFYH4XhFOkinTjliEQlYDggP56Qzp4d1dhAiAQaESMBSQDhekQmcjFnsIEQCDAiRQMqAcLwik9gds9hBiAQYECIBBoRIQBgQnj/IRHbOIewgRAIMCJFAxO8LsOLYygP494mcvo+37M/H89tG4viq/dh3PBf3rx3X998OLT+I8T+fNOjPiRbecg4rH2jBjF9NwOm22DI8eOs5LCo7i47OMDo6M/Doa4VoOZ8pvAYymxYB6eoJ4b5+IYjrvJyBcEYUZcUd2HU0z9bfeVfpx/j9jmsxd1IbXv3XCNw+vh33ffY87nnuRlzqzsCciW149pvN+Oq6ccJrILMlHbF0OaD/uroAj1W02vqanKxe5GZF8UrdCNw5uQ0A8PDsM3iqqgCXumNL8s77+Th2JguZ4aj0ayb/WT2oa38G2Xkk1jnKSzosf80dE9qx9f3hONqajRtGdCMzHMWE6zpRfzJnwOf95C9j0N0Tknq9pBctRqyscBRvPNLU9/HyqgLsPZbb9/Hq6tF4vKIV9x6xNgJVlH6M0jGXMH/aBRRc1Y2y4g6EM8SdItU1kJm0CEiq+X/X0Tz0RIEvWOgi4YwobhzVhbnPlACIdZM7J7eh8XQ2phRewrtXDuKhELDmG82o/HORpWsgM2k/YsWtrh6NRytOpfy8z3/mf9jfMqzv49qmXMye0I4/1lyDpfNOISsS6yQLpl9AdoTnj6DTooMkjjd7j+di+aaCAZ9T25iH7p4QsiO9A77uzcWNfR/vOZaLcMYn5xYAuNiVgTPtERz4cBh2N+bh7z86grMdEZxpi2Dp64W2roHME8ovrxzy26Qur2IROWWlxoccsRgOCgIrL/UacwYhcgMDQiTAgBAJMCBEAgwIkQADQiTAgBAJMCBEAgwIkQADQiTAgBAJMCBEAgwIkQADQiTAgBAJMCBEAgwIkQADQiQwZECc/k/XiXTi+HfSiShGi9v+nPrn09h38DhCCCE/bxiWv1iFzTUNAx4fnpuNnz77Bnb+5wgAYNE9s/DMj7+GyQ/8Aq0fxe6/O218EZ54+CuIRMK43NOD7z+1Ac2t59FcvRJFFUsBYMCfibQISHf3Zdy9+DkAwNSSMdi46nvYXNMw4PHS4kK8uOzbmLVoFQBgXvkUPP/aNtw1azJe3lQHAFj7s2/h64+9gJOt53Hv7Gl4cvECPLTsT748J9KDdiNWw9EWXO7pHfT4gcYPUTjqagBAzrAs5OZkYf1bu1FRVtr3OaNG5CM7K/Y9oWpnA1746w5Prpn0pUUH6e/2GTfh8TWvD3p8zswJ2LbvEADgSzMn4h+1B3H4RCvGfvpaZGWG0dXdg1/+7m/YsnYJ3t59ABu37MX2dw97ffmkGS0CkpkZQdVvfoDszAhmTLoB2/cdxuaahr7HM8NhjB9bgJkPrgAAfPm2qZh60xgsuGM6rhv5KZRPL8HWPR/glao6bNpRj/lfnIqVS+7HW9vew4o/bPb52ZHKkgakbX3zgJfB8hcV+XaHxcSzxpbfVg56/IcL52Lh3TOxZsM7KLl+NMofWg0AmHvLRMwrK0X94ZMovn4U6uqb8PKmOlTX7EftS0sZkICyevdQ7c4gH13oQFPL2UGPb93zAT43eSxuvXkc6o+c7Ht8138bMWfmRESjUax/4jsoGn01AOCaq/LQfOqcV5dNmtJqxOrtjd1nu3L1xkGfc+hEK6YUF2L+bTdj+5WzCABcvNSF0+faMXLEcFSufhUvPfldXOzsRk9vLx5ZsWHIf+vtdUv6Pq59rwnL1r3pwrMiHSS9uzvAm1iTuYwdsYi8JAwI35NFJrIzGbGDEAkwIEQCDAiRQMqA8BxCJrH7yiw7CJEAA0IkYCkgHLPIBE5+8M0OQiTAgBAJWA4IxyzSmdP3FbKDEAmkFRB2EdJBOnVqKyB8uzuZwE4dc8QiErAdEB7WSSfp/tIfOwiRgJSAsIuQimTUpaOA8LBOOnJSt9JGLHYRUomsenQcEHYR0onTepV6SGcXIRXIrMO0AsIuQjpIp06lv8zLLkJ+kl1/aQeEXYRUlm59uvKDQnYR8oMbdSclIEOllCEhLw1VbzKmG2kdhKMWqURWPbr6Xix2EfKCm3UmNSDsIqQCmXXo+rt52UXITW7Xl/SA8MBOXnHrYN6fKx2EISG3eREOwMURi+cR8pJb9ebpbxSyi5AMXtaRqwHhqEWyeTVaxbneQRgSksXrcAAejVg8j5AbvKgr3+5qwi5CdvhVL54FhKMWOeXHaBXnaQdhSMguP8MB+DBiMSRkld/hAHw6gzAklIoK4QB8PKQzJJSMKuEAfL43L0NCiVQKB6DAzasZEopTLRyAAgEBGBJSMxyAIgEBGJIgUzUcgEIBARiSIFI5HAAQyi+vjPp9EYmShUKlhaP06LLHSnWQuGSLxG5iBl3CASgaEIAhMZVO4QAUHbH6EwVC1UWlwXTdR+UDEqfbdx76hM57p+yIlYgjl550DgegUQeJ07VVB40p+6RdQOJM2QDTmLYv2oxYiUSLzbHLH6aFA9C4g8SlCoOuG6MTk/dA+4DEmbxJqgrCmhsTkLggbJrfgrTGxgUEsHYGMWkTvRLEdTUyIHFB3FA3BHkdjQ5InNVXtUzdZCe4ZjGBCEgcNz01rtFAgQpInJ2fkwShELgeyQUyIP0FtTiC+rztCnxA4pz89F2nwjH9+bmFARlCOm9VUaGodL9+lTAgKch8X5fM4lP1ukzDgNhg0psgGQprIn5fgE4Si0qnwDAQzjAgaVD1Pl4MgzwMiGRe/Z4KQ+ANBsRDLGr9aPsbhUReYECIBBgQIoH/A0wBnesYR8uhAAAAAElFTkSuQmCC" alt="Enlace Brasil">
+  <div class="header-text">
+    <div class="nivel">A2 · Principiante</div>
+    <div class="titulo">Aula 6 — Família, relações e sentimentos</div>
+    <div class="sub">Enlace Brasil · Instituto de Língua e Cultura Brasileira</div>
+  </div>
+</div>
+
+<!-- GUIA RÁPIDO -->
+<div class="sec"><h2>📌 Guia rápido — Família e sentimentos</h2><p>Para consultar durante os exercícios</p></div>
+<div class="content">
+  <div class="familia-grid">
+    <div class="familia-card"><div class="emoji">👨</div><div class="pt">o pai <button class="ab" onclick="falar('o pai',this)">🔊 ouvir</button></div><div class="es">el padre</div></div>
+    <div class="familia-card"><div class="emoji">👩</div><div class="pt">a mãe <button class="ab" onclick="falar('a mãe',this)">🔊 ouvir</button></div><div class="es">la madre</div></div>
+    <div class="familia-card"><div class="emoji">👦</div><div class="pt">o filho <button class="ab" onclick="falar('o filho',this)">🔊 ouvir</button></div><div class="es">el hijo</div></div>
+    <div class="familia-card"><div class="emoji">👧</div><div class="pt">a filha <button class="ab" onclick="falar('a filha',this)">🔊 ouvir</button></div><div class="es">la hija</div></div>
+    <div class="familia-card"><div class="emoji">🧑</div><div class="pt">o irmão <button class="ab" onclick="falar('o irmão',this)">🔊 ouvir</button></div><div class="es">el hermano</div></div>
+    <div class="familia-card"><div class="emoji">👩</div><div class="pt">a irmã <button class="ab" onclick="falar('a irmã',this)">🔊 ouvir</button></div><div class="es">la hermana</div></div>
+    <div class="familia-card"><div class="emoji">👴</div><div class="pt">o avô <button class="ab" onclick="falar('o avô',this)">🔊 ouvir</button></div><div class="es">el abuelo</div></div>
+    <div class="familia-card"><div class="emoji">👵</div><div class="pt">a avó <button class="ab" onclick="falar('a avó',this)">🔊 ouvir</button></div><div class="es">la abuela</div></div>
+    <div class="familia-card"><div class="emoji">🧔</div><div class="pt">o tio <button class="ab" onclick="falar('o tio',this)">🔊 ouvir</button></div><div class="es">el tío</div></div>
+    <div class="familia-card"><div class="emoji">👩</div><div class="pt">a tia <button class="ab" onclick="falar('a tia',this)">🔊 ouvir</button></div><div class="es">la tía</div></div>
+    <div class="familia-card"><div class="emoji">🧑</div><div class="pt">o primo <button class="ab" onclick="falar('o primo',this)">🔊 ouvir</button></div><div class="es">el primo</div></div>
+    <div class="familia-card"><div class="emoji">👦</div><div class="pt">o sobrinho <button class="ab" onclick="falar('o sobrinho',this)">🔊 ouvir</button></div><div class="es">el sobrino</div></div>
+  </div>
+  <div class="ref-grid" style="margin-top:12px">
+    <div class="ref-card"><div class="pt">sentir falta <button class="ab" onclick="falar('sentir falta',this)">🔊 ouvir</button></div><div class="es">extrañar</div><div class="ex">Sinto falta da minha avó.</div></div>
+    <div class="ref-card"><div class="pt">ter saudade <button class="ab" onclick="falar('tenho saudade',this)">🔊 ouvir</button></div><div class="es">extrañar / nostalgia</div><div class="ex">Tenho saudade do Brasil.</div></div>
+    <div class="ref-card"><div class="pt">estou com fome <button class="ab" onclick="falar('estou com fome',this)">🔊 ouvir</button></div><div class="es">tengo hambre</div><div class="ex">Estou com fome!</div></div>
+    <div class="ref-card"><div class="pt">estou com medo <button class="ab" onclick="falar('estou com medo',this)">🔊 ouvir</button></div><div class="es">tengo miedo</div><div class="ex">Estou com medo do avião.</div></div>
+  </div>
+  <div class="alerta" style="margin-top:12px">
+    <strong>⚠️ Cuidado!</strong> <strong>grávida</strong> = embarazada (ES) · <strong>embaraçada</strong> = avergonzada ·
+    <strong>o pai dele</strong> (ele) ≠ <strong>seu pai</strong> (você)
+  </div>
+  <div class="destaque" style="margin-top:10px">
+    <strong>🇧🇷 Sensações:</strong> Em português usamos <strong>estou COM</strong> (não tenho):<br>
+    estou com fome · estou com sede · estou com sono · estou com medo · estou com saudade
+  </div>
+</div>
+
+<!-- EX 1 — PARENTESCO -->
+<div class="sec"><h2>✏️ Exercício 1 — Complete a relação de parentesco</h2><p>Banco: prima · sobrinho · avó · tio · marido · irmão</p></div>
+<div class="content">
+  <div class="ex-box">
+    <h3>Quem é quem na família?</h3>
+    <div class="transform-item">
+      <p>1. A filha da minha tia é minha ___.</p>
+      <input type="text" placeholder="..." oninput="checar(this,['prima'],1,'prima')">
+      <div class="feedback" id="fb1"></div>
+    </div>
+    <div class="transform-item">
+      <p>2. O filho do meu irmão é meu ___.</p>
+      <input type="text" placeholder="..." oninput="checar(this,['sobrinho'],2,'sobrinho')">
+      <div class="feedback" id="fb2"></div>
+    </div>
+    <div class="transform-item">
+      <p>3. A mãe da minha mãe é minha ___.</p>
+      <input type="text" placeholder="..." oninput="checar(this,['avó'],3,'avó')">
+      <div class="feedback" id="fb3"></div>
+    </div>
+    <div class="transform-item">
+      <p>4. O irmão do meu pai é meu ___.</p>
+      <input type="text" placeholder="..." oninput="checar(this,['tio'],4,'tio')">
+      <div class="feedback" id="fb4"></div>
+    </div>
+    <div class="transform-item">
+      <p>5. O ___ da Ana trabalha no banco. Eles são casados.</p>
+      <input type="text" placeholder="..." oninput="checar(this,['marido','esposo'],5,'marido')">
+      <div class="feedback" id="fb5"></div>
+    </div>
+    <div class="transform-item">
+      <p>6. Eu tenho um ___ mais velho. Nós temos os mesmos pais.</p>
+      <input type="text" placeholder="..." oninput="checar(this,['irmão','irmao'],6,'irmão')">
+      <div class="feedback" id="fb6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EX 2 — POSSESSIVOS -->
+<div class="sec"><h2>✏️ Exercício 2 — Possessivos com família</h2><p>seu/sua (você) x dele/dela (ele/ela)</p></div>
+<div class="content">
+  <div class="ex-box">
+    <h3>Escolha o possessivo correto:</h3>
+    <div class="ex-q" style="margin-bottom:18px">
+      <p>1. João tem um irmão. Como você fala sobre o irmão de João?</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,false)">a) Seu irmão é médico.</div>
+        <div class="opcao" onclick="escolher(this,true)">b) O irmão dele é médico.</div>
+        <div class="opcao" onclick="escolher(this,false)">c) O irmão deles é médico.</div>
+      </div>
+    </div>
+    <div class="ex-q" style="margin-bottom:18px">
+      <p>2. Você fala com alguém diretamente. Como pergunta sobre a família dessa pessoa?</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,true)">a) Onde mora sua família?</div>
+        <div class="opcao" onclick="escolher(this,false)">b) Onde mora a família dele?</div>
+        <div class="opcao" onclick="escolher(this,false)">c) Onde mora a família deles?</div>
+      </div>
+    </div>
+    <div class="ex-q" style="margin-bottom:18px">
+      <p>3. Maria e Ana têm uma mãe. Como você fala sobre a mãe delas?</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,false)">a) Sua mãe é professora.</div>
+        <div class="opcao" onclick="escolher(this,false)">b) A mãe dela é professora.</div>
+        <div class="opcao" onclick="escolher(this,true)">c) A mãe delas é professora.</div>
+      </div>
+    </div>
+    <div class="ex-q">
+      <p>4. "Estou com saudade da ___ família." — você fala sobre a SUA família:</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,true)">a) minha</div>
+        <div class="opcao" onclick="escolher(this,false)">b) sua</div>
+        <div class="opcao" onclick="escolher(this,false)">c) dela</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EX 3 — SENTIMENTOS E SENSAÇÕES -->
+<div class="sec"><h2>✏️ Exercício 3 — Sentimentos e sensações</h2><p>Como você se sente?</p></div>
+<div class="content">
+  <div class="ex-box">
+    <h3>Complete com a expressão correta:</h3>
+    <div class="ex-q" style="margin-bottom:18px">
+      <p>1. Você não comeu nada desde ontem. Você diz:</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,false)">a) Tenho fome.</div>
+        <div class="opcao" onclick="escolher(this,true)">b) Estou com fome.</div>
+        <div class="opcao" onclick="escolher(this,false)">c) Sinto fome.</div>
+      </div>
+    </div>
+    <div class="ex-q" style="margin-bottom:18px">
+      <p>2. Você está longe da família há 6 meses. Você diz:</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,false)">a) Estou faltando minha família.</div>
+        <div class="opcao" onclick="escolher(this,true)">b) Sinto falta da minha família. / Estou com saudade.</div>
+        <div class="opcao" onclick="escolher(this,false)">c) Estou perdendo minha família.</div>
+      </div>
+    </div>
+    <div class="ex-q">
+      <p>3. Uma moça disse "Estou embaraçada!" em português. O que ela quis dizer?</p>
+      <div class="opcoes">
+        <div class="opcao" onclick="escolher(this,false)">a) Está grávida.</div>
+        <div class="opcao" onclick="escolher(this,true)">b) Está envergonhada.</div>
+        <div class="opcao" onclick="escolher(this,false)">c) Está com fome.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EX 4 — ÁRVORE GENEALÓGICA -->
+<div class="sec"><h2>✏️ Exercício 4 — Minha árvore genealógica</h2><p>Desenhe e apresente sua família</p></div>
+<div class="content">
+  <div class="ex-box">
+    <h3>Desenhe sua árvore genealógica (mínimo 5 pessoas):</h3>
+    <div class="arvore">
+      <p>Desenhe aqui ou descreva sua família por escrito abaixo ↓</p>
+    </div>
+    <div style="margin-top:16px">
+      <h3 style="font-size:14px;color:#0d3b6e;margin-bottom:12px">Apresente sua família usando estas estruturas:</h3>
+      <div class="prod-item"><div class="prompt">Meu/Minha ___ se chama... e tem ___ anos.</div><textarea placeholder="Meu pai se chama..."></textarea></div>
+      <div class="prod-item"><div class="prompt">O/A ___ dele/dela é... (apresente alguém indiretamente)</div><textarea placeholder="A esposa do meu irmão..."></textarea></div>
+      <div class="prod-item"><div class="prompt">Adoro / Amo / Me orgulho de... porque...</div><textarea placeholder="Adoro minha avó porque..."></textarea></div>
+      <div class="prod-item"><div class="prompt">Estou com saudade de... porque...</div><textarea placeholder="Estou com saudade..."></textarea></div>
+      <div class="prod-item"><div class="prompt">Na minha família, ___ é muito... (use um adjetivo)</div><textarea placeholder="Na minha família, minha mãe é muito..."></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- CULTURA AFETIVA -->
+<div class="sec"><h2>🇧🇷 Bônus cultural — Expressões afetivas brasileiras</h2><p>O brasileiro chama desconhecidos de "amor" — e é normal!</p></div>
+<div class="content">
+  <div class="ref-grid">
+    <div class="ref-card"><div class="pt">meu amor <button class="ab" onclick="falar('O que vai querer, meu amor?',this)">🔊 ouvir</button></div><div class="es">mi amor (pero sin romanticismo)</div><div class="ex">Garçom: "O que vai querer, meu amor?"</div></div>
+    <div class="ref-card"><div class="pt">meu bem <button class="ab" onclick="falar('Pode sentar aqui, meu bem.',this)">🔊 ouvir</button></div><div class="es">mi bien / cariño</div><div class="ex">"Pode sentar aqui, meu bem."</div></div>
+    <div class="ref-card"><div class="pt">querida/o <button class="ab" onclick="falar('Obrigada, querida!',this)">🔊 ouvir</button></div><div class="es">querida/o</div><div class="ex">"Obrigada, querida!"</div></div>
+    <div class="ref-card"><div class="pt">fofo/a <button class="ab" onclick="falar('Que casal fofo!',this)">🔊 ouvir</button></div><div class="es">tierno / cute</div><div class="ex">"Que casal fofo!"</div></div>
+  </div>
+  <div class="destaque" style="margin-top:12px">
+    <strong>💡 No Brasil</strong> ser chamado de "amor" ou "meu bem" por um estranho é completamente normal — não tem conotação romântica. É cultura afetiva. Se isso acontecer com você no Brasil, receba com carinho!
+  </div>
+</div>
+
+<div class="rodape">
+  <img src="data:image/png;base64,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" alt="Enlace Brasil">
+  <strong>Enlace Brasil</strong> · Instituto de Língua e Cultura Brasileira · Ciudad de México<br>
+  Aula 6 · A2 · Família, relações e sentimentos
+</div>
+
+<script>
+var _voices=[];var _currentBtn=null;
+function _loadVoices(){_voices=window.speechSynthesis.getVoices();}
+if(typeof speechSynthesis!=='undefined'){_loadVoices();if(speechSynthesis.onvoiceschanged!==undefined){speechSynthesis.onvoiceschanged=_loadVoices;}}
+function _getBestVoice(){var a=_voices.filter(function(v){return v.lang==='pt-BR';});if(a.length)return a[0];var b=_voices.filter(function(v){return v.lang.startsWith('pt');});if(b.length)return b[0];return null;}
+function falar(txt,btn){
+  if(!('speechSynthesis' in window)){alert('Use Chrome ou Safari para ouvir o audio.');return;}
+  if(_currentBtn===btn&&window.speechSynthesis.speaking){window.speechSynthesis.cancel();if(_currentBtn){_currentBtn.textContent='🔊 ouvir';_currentBtn.classList.remove('playing');}_currentBtn=null;return;}
+  window.speechSynthesis.cancel();
+  if(_currentBtn){_currentBtn.textContent='🔊 ouvir';_currentBtn.classList.remove('playing');}
+  if(_voices.length===0)_loadVoices();
+  var utt=new SpeechSynthesisUtterance(txt);
+  utt.lang='pt-BR';utt.rate=0.9;
+  var v=_getBestVoice();if(v)utt.voice=v;
+  _currentBtn=btn;
+  if(btn){btn.textContent='⏸ parar';btn.classList.add('playing');}
+  utt.onend=function(){if(_currentBtn===btn){if(btn){btn.textContent='🔊 ouvir';btn.classList.remove('playing');}}_currentBtn=null;};
+  utt.onerror=function(){if(btn){btn.textContent='🔊 ouvir';btn.classList.remove('playing');}_currentBtn=null;};
+  setTimeout(function(){window.speechSynthesis.speak(utt);},80);
+}
+function escolher(el,certo){el.closest('.ex-q').querySelectorAll('.opcao').forEach(function(o){o.className='opcao';});el.className='opcao '+(certo?'certo':'errado');}
+function checar(input,chaves,n,sug){var val=input.value.toLowerCase().trim();var fb=document.getElementById('fb'+n);if(val.length<2){fb.className='feedback';return;}if(chaves.some(function(k){return val.includes(k);})){fb.className='feedback ok';fb.textContent='✅ '+sug;}else{fb.className='feedback err';fb.textContent='❌ Tente de novo.';}}
+</script>
+</body>
+</html>
